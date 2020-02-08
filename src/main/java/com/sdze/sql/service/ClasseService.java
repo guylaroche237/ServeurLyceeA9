@@ -3,11 +3,13 @@ package com.sdze.sql.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.sdze.sql.entite.Classes;
 import com.sdze.sql.metier.ClassesMetier;
 import com.sdze.sql.repository.ClassesRepository;
 
+@Service
 public class ClasseService implements ClassesMetier{
 
 	@Autowired
