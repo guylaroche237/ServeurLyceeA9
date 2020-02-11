@@ -45,6 +45,11 @@ public class StudentController {
 		return st.findAll();
 	}
 	
+	@GetMapping("/student/{id}")
+	public Student getStudentbyId(@PathVariable Long id) {
+		return st.getStudentById(id);
+	}
+	
 	@GetMapping("/student/{login}/{password}")
 	public Student getStudentLandP(@PathVariable String login,@PathVariable String password) {
 		return stud.getStudentByLoginPassword(login, password);

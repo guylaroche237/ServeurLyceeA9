@@ -3,11 +3,13 @@ package com.sdze.sql.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.sdze.sql.entite.Matiere;
 import com.sdze.sql.metier.MatiereMetier;
 import com.sdze.sql.repository.MatiereRepository;
 
+@Service
 public class MatiereService implements MatiereMetier{
 	
 	@Autowired
@@ -36,6 +38,12 @@ public class MatiereService implements MatiereMetier{
 	public List<Matiere> getMatieres() {
 		// TODO Auto-generated method stub
 		return mat.findAll();
+	}
+
+	@Override
+	public List<Matiere> getMatiereByclasse(String nom) {
+		// TODO Auto-generated method stub
+		return mat.getMatiereByNameClasse(nom);
 	}
 
 }

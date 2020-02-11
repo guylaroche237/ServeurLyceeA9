@@ -6,14 +6,19 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Matiere {
 	@Id
 	@GeneratedValue
 	private Long id;
+	private String title;
+	private String image;
 	private String nom_matiere;
 	@ManyToOne
 	@JoinColumn(name="id_classe")
+	@JsonIgnore
 	private Classes classes;
 	
 	public Long getId() {
@@ -28,9 +33,56 @@ public class Matiere {
 	public void setNom_matiere(String nom_matiere) {
 		this.nom_matiere = nom_matiere;
 	}
+	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+		
+	}
+	public Classes getClasses() {
+		return classes;
+	}
+	public void setClasses(Classes classes) {
+		this.classes = classes;
+	}
 	public Matiere(String nom_matiere) {
 		super();
 		this.nom_matiere = nom_matiere;
+	}
+	
+	public Matiere(String title, String nom_matiere,Classes classes) {
+		super();
+		this.title = title;
+		this.nom_matiere = nom_matiere;
+		this.classes = classes;
+		if(this.title.equalsIgnoreCase("Math")) {
+			this.image ="../../assets/matiere/mat.png";
+		}else if(this.title.equalsIgnoreCase("Histoire")) {
+			this.image ="../../assets/matiere/cafe.jpg";
+
+		}else if(this.title.equalsIgnoreCase("Geographi")) {
+			this.image ="../../assets/matiere/francais.jpg";
+		}
+		else if(this.title.equalsIgnoreCase("Histoire")) {
+			this.image ="../../assets/matiere/pain.jpg";
+		}
+		else if(this.title.equalsIgnoreCase("informatique")) {
+			this.image ="../../assets/matiere/mat.png";
+		}
+		else if(this.title.equalsIgnoreCase("francais")) {
+			this.image ="../../assets/matiere/work.jpg";
+		}
+		else if(this.title.equalsIgnoreCase("cuisine")) {
+			this.image ="../../assets/matiere/chimie.jpg";
+		}
 	}
 	public Matiere() {
 		super();

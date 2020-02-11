@@ -2,7 +2,10 @@ package com.sdze.sql.metier;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.sdze.sql.entite.Enseignant;
+
 
 public interface EnseignantMetier {
 	public Enseignant saveEnseignant(Enseignant ens);

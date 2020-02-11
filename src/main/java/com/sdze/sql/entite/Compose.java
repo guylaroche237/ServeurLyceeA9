@@ -18,6 +18,7 @@ public class Compose {
 	private Date date;
 	private double note;
 	private String mention;
+	private String sequence;
 	@ManyToOne
 	@JoinColumn(name="id_matiere")
 	private Matiere matiere;
@@ -62,6 +63,13 @@ public class Compose {
 	}
 	public void setMatiere(Matiere matiere) {
 		this.matiere = matiere;
+	}
+	
+	public String getSequence() {
+		return sequence;
+	}
+	public void setSequence(String sequence) {
+		this.sequence = sequence;
 	}
 	public Compose(Date date, double note, String mention) {
 		super();
