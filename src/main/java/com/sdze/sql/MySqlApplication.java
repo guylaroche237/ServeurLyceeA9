@@ -1,5 +1,7 @@
 package com.sdze.sql;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -7,9 +9,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.sdze.sql.entite.Classes;
 import com.sdze.sql.entite.Matiere;
+import com.sdze.sql.entite.Sms;
 import com.sdze.sql.entite.Student;
 import com.sdze.sql.repository.ClassesRepository;
 import com.sdze.sql.repository.MatiereRepository;
+import com.sdze.sql.repository.SmsRepository;
 import com.sdze.sql.repository.StudenRepository;
 
 
@@ -23,6 +27,10 @@ public class MySqlApplication implements CommandLineRunner {
 	private ClassesRepository classes ;
 	@Autowired
 	private MatiereRepository matieres;
+	
+	@Autowired
+	private SmsRepository sms;
+	Date jour = new Date();
 
 	public static void main(String[] args) {
 		SpringApplication.run(MySqlApplication.class, args);
@@ -35,6 +43,10 @@ public class MySqlApplication implements CommandLineRunner {
 		Classes c= new Classes(65,"5emeA1");Classes d= new Classes(65,"5emeA2");
 		Classes e = new Classes(65,"4emeB");Classes f = new Classes(65,"4emeA");
 		Classes g = new Classes(75,"3emeA");
+		
+		Student el1 = new Student("malla germaine","admin","admin");
+		Student el2 = new Student("frank","paul","paul");
+		
 		
 		Classes h = new Classes(70,"Seconde C");
 		Classes i = new Classes(65,"Seconde A");Classes k = new Classes(65,"3emeB");
@@ -51,6 +63,8 @@ public class MySqlApplication implements CommandLineRunner {
 		
 		classes.save(pd);classes.save(ta);classes.save(tc);
 		classes.save(td);
+		student.save(el1);
+		student.save(el2);
 		
 		
 		matieres.save(new Matiere("Math", "Fonction",a));
@@ -66,8 +80,14 @@ public class MySqlApplication implements CommandLineRunner {
 		//userRepository.save(new User("three","three One"));
 		//userRepository.save(new User("four","One four"));
 		//userRepository.save(new User("five","five One"));
-		student.save(new Student("feuko","laroche","laroche22"));
-		//student.save(new Student("feukao","borice","m3409U"));
+		Student admin = new Student("feuko","laroche","laroche22");
+		student.save(admin);
+		
+		sms.save(new Sms("Bonjour toute la famille",el1));
+		sms.save(new Sms("merci comment allez vous",el2));
+		sms.save(new Sms("mon message",admin,new Date()));
+		
+		student.save(new Student("feukao","borice","m3409U"));
 		
 		
 	}

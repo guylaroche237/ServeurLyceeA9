@@ -1,11 +1,13 @@
 package com.sdze.sql.entite;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Student {
@@ -20,6 +22,15 @@ public class Student {
 	private String adresse;
 	private Date date;
 	private String classe;
+	
+	//@OneToMany(mappedBy="student")
+	//private Collection<Sms> messages;
+	
+	
+	/*
+	 * public Collection<Sms> getMessages() { return messages; } public void
+	 * setMessages(Collection<Sms> messages) { this.messages = messages; }
+	 */
 	public Long getId() {
 		return id;
 	}

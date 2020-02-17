@@ -31,9 +31,10 @@ public class StudentController {
 	private StudenRepository st;
 	
 	
-	  @PostMapping("/save/student") public void saveStudent(@RequestBody Student
-	  student) { System.out.println(student); stud.addStudent(student);
-	  System.out.println("Fin fin ------------------------------ fin fin");
+	  @PostMapping("/save/student") 
+	  public void saveStudent(@RequestBody Student student) {
+		  System.out.println(student); stud.addStudent(student);
+	  
 	  
 	  }
 	 
