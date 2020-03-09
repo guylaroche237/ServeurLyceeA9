@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Photo {
 	
@@ -13,11 +15,13 @@ public class Photo {
 	@GeneratedValue
 	private Long id;
 	
+	private String keyimg;
 	private String name;
+	private String type;
 	@Lob
 	private byte[] file;
 	
-	private String keyimg;
+	
 	
 	public String getKey() {
 		return keyimg;
@@ -56,6 +60,25 @@ public class Photo {
 	public Photo(String name, byte[] file) {
 		super();
 		this.name = name;
+		this.file = file;
+	}
+	public String getKeyimg() {
+		return keyimg;
+	}
+	public void setKeyimg(String keyimg) {
+		this.keyimg = keyimg;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public Photo(String keyimg, String name, String type, byte[] file) {
+		super();
+		this.keyimg = keyimg;
+		this.name = name;
+		this.type = type;
 		this.file = file;
 	}
 	

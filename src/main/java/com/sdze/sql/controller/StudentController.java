@@ -55,5 +55,15 @@ public class StudentController {
 	public Student getStudentLandP(@PathVariable String login,@PathVariable String password) {
 		return stud.getStudentByLoginPassword(login, password);
 	}
+	
+	@GetMapping("/students/{classes}")
+	public List<Student> getStudentByClasses(@PathVariable String classes){
+		return st.getStudentByClasse(classes);
+	}
+	
+	@GetMapping("/student/name/{name}")
+	public Student getStudentByNam(@PathVariable String name) {
+		return st.getStudentByName(name);
+	}
 
 }

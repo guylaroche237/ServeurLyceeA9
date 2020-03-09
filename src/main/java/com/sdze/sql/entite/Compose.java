@@ -22,6 +22,17 @@ public class Compose {
 	@ManyToOne
 	@JoinColumn(name="id_matiere")
 	private Matiere matiere;
+	public Student getStudent() {
+		return student;
+	}
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+
+	@ManyToOne
+	@JoinColumn(name="id_student")
+	private Student student;
+	
 	public Long getId() {
 		return id;
 	}
@@ -41,19 +52,9 @@ public class Compose {
 		this.note = note;
 	}
 	public String getMention() {
-		String resultat = null;
-		if(this.note <=5) {
-			resultat = "Nulle";
-		}else if(this.note >5 && this.note<9) {
-			resultat = "Faible";
-		}else if(this.note>=10 && this.note<12) {
-			resultat = "Passable";
-		}else if(this.note>=13 && this.note<17) {
-			resultat = "Bien";
-		}else if(this.note>=18 && this.note<=20) {
-			resultat = "TRES bien";
-		}
-		return resultat;
+		
+		
+		return this.mention;
 	}
 	public void setMention(String mention) {
 		this.mention = mention;
@@ -71,12 +72,28 @@ public class Compose {
 	public void setSequence(String sequence) {
 		this.sequence = sequence;
 	}
-	public Compose(Date date, double note, String mention) {
+	
+	public Compose(double note, String sequence,Matiere matiere,Student student) {
 		super();
-		this.date = date;
+		this.date = new Date();
 		this.note = note;
-		this.mention = mention;
+		this.sequence = sequence;
+		this.matiere = matiere;
+		this.student = student;
+		
+		if(this.note <=5) {
+			this.mention = "Nulle";
+		}else if(this.note >5 && this.note<=9) {
+			this.mention = "Faible";
+		}else if(this.note>=10 && this.note<=12) {
+			this.mention = "Passable";
+		}else if(this.note>=13 && this.note<17) {
+			this.mention = "Bien";
+		}else if(this.note>=17 && this.note<=20) {
+			this.mention = "TRES bien";
+		}
 	}
+	
 	public Compose() {
 		super();
 		// TODO Auto-generated constructor stub

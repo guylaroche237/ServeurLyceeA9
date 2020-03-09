@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Classes {
 	@Id
@@ -22,6 +24,7 @@ public class Classes {
 	private List<Student> eleves;
 	
 	@OneToMany(mappedBy="classes",fetch=FetchType.LAZY)
+	@JsonIgnore
 	private List<Matiere> matieres;
 
 	public Long getId() {

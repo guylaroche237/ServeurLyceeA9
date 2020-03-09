@@ -1,13 +1,12 @@
 package com.sdze.sql.entite;
 
-import java.util.Collection;
+
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.OneToMany;
+
 
 @Entity
 public class Student {
@@ -143,6 +142,14 @@ public class Student {
 		this.nom = nom;
 		this.login = login;
 		this.password = password;
+	}
+	
+	public Student(String nom, String login, String password,String classes) {
+		super();
+		this.nom = nom;
+		this.login = login;
+		this.password = password;
+		this.classe = classes;
 	}
 	public Student() {
 		super();

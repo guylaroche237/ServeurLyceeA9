@@ -18,7 +18,7 @@ public class Matiere {
 	private String nom_matiere;
 	@ManyToOne
 	@JoinColumn(name="id_classe")
-	@JsonIgnore
+	//@JsonIgnore
 	private Classes classes;
 	
 	public Long getId() {
@@ -68,20 +68,22 @@ public class Matiere {
 		}else if(this.title.equalsIgnoreCase("Histoire")) {
 			this.image ="../../assets/matiere/cafe.jpg";
 
-		}else if(this.title.equalsIgnoreCase("Geographi")) {
+		}else if(this.title.equalsIgnoreCase("Geographie")) {
 			this.image ="../../assets/matiere/francais.jpg";
 		}
 		else if(this.title.equalsIgnoreCase("Histoire")) {
 			this.image ="../../assets/matiere/pain.jpg";
 		}
 		else if(this.title.equalsIgnoreCase("informatique")) {
-			this.image ="../../assets/matiere/mat.png";
-		}
-		else if(this.title.equalsIgnoreCase("francais")) {
 			this.image ="../../assets/matiere/work.jpg";
 		}
-		else if(this.title.equalsIgnoreCase("cuisine")) {
-			this.image ="../../assets/matiere/chimie.jpg";
+		else if(this.title.equalsIgnoreCase("francais")) {
+			this.image ="../../assets/matiere/francais.jpg";
+		}
+		else if(this.title.equalsIgnoreCase("Chimie")) {
+			this.image ="../../assets/matiere/chi.jpg";
+		}else if(this.title.equalsIgnoreCase("Philosophie")) {
+			this.image ="../../assets/matiere/chimie1.jpg";
 		}
 	}
 	public Matiere() {
