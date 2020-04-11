@@ -1,7 +1,12 @@
 package com.sdze.sql.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.zip.DataFormatException;
+import java.util.zip.Inflater;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +39,41 @@ public class SmsController {
 	}
 	@GetMapping("/all")
 	public List<Sms> allSms() {
-		return smsmetier.allSms();
+		List<Sms> alls = new ArrayList<Sms>();
+		List<Sms> liste = smsmetier.allSms();
+		for(Sms s: liste) {
+			Student stu = s.getStudent();
+			if(stu.getProfil()!=null) {
+			Student elev = new Student(stu.getNom(),stu.getLogin(),stu.getPassword(),stu.getEmail(),stu.getDate(),stu.getClasse(),decompressZLib(stu.getProfil()));
+			elev.setId(stu.getId());
+			Sms sms = new Sms(s.getMessage(),elev);
+			alls.add(sms);
+			}
+			}
+		/*
+		 * for(Sms s: smsmetier.allSms()) { Student stu = s.getStudent();
+		 * stu.setProfil(decompressZLib(s.getStudent().getProfil())); Sms sms = new
+		 * Sms(s.getMessage(),stu); alls.add(sms); }
+		 */
+		//return smsmetier.allSms();
+		return alls;
+	}
+	
+	public static byte[] decompressZLib(byte[] data) {
+		Inflater inflater = new Inflater();
+		inflater.setInput(data);
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
+		byte[] buffer = new byte[1024];
+		try {
+			while (!inflater.finished()) {
+				int count = inflater.inflate(buffer);
+				outputStream.write(buffer, 0, count);
+			}
+			outputStream.close();
+		} catch (IOException ioe) {
+		} catch (DataFormatException e) {
+		}
+		return outputStream.toByteArray();
 	}
 
 }

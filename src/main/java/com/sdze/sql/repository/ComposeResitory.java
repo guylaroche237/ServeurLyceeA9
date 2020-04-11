@@ -18,7 +18,7 @@ public interface ComposeResitory extends JpaRepository<Compose, Long> {
 	
 	@Transactional
 	@Modifying
-	@Query("SELECT compos FROM Compose compos WHERE compos.student.id = ?1 AND compos.matiere.title = ?2 ")
+	@Query("SELECT compos FROM Compose compos WHERE compos.student.id = ?1 AND compos.matiere.nom = ?2 ")
 	public List<Compose> allCompoStudentByMatiere(Long id_student,String matiere);
 	
 	@Transactional

@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sdze.sql.entite.Compose;
 import com.sdze.sql.entite.Matiere;
 import com.sdze.sql.entite.Student;
+import com.sdze.sql.entite.Unite;
 import com.sdze.sql.repository.ComposeResitory;
 import com.sdze.sql.repository.MatiereRepository;
 import com.sdze.sql.repository.StudenRepository;
+import com.sdze.sql.repository.UniteRepository;
 
 @RestController
 @RequestMapping("/api/compo")
@@ -30,6 +32,8 @@ public class ComposeController {
 	
 	@Autowired
 	private StudenRepository stu;
+	@Autowired
+	private UniteRepository unite;
 	
 	@GetMapping("/seq/{id}/{seq}")
 	public List<Compose> findCompoStudentBySequence(@PathVariable long id,@PathVariable String seq){
@@ -52,11 +56,12 @@ public class ComposeController {
 	}
 	
 	@Transactional
-	@PostMapping("/save/{note}/{seq}/{title}/{classes}/{stu}")
-	public void saveCompo(@PathVariable double note,@PathVariable String seq,@PathVariable String title,@PathVariable String classes,@PathVariable String stu) {
-		Matiere matiere  = this.mat.getMatiereByTitleAndClasse(title, classes);
+	@PostMapping("/save/{note}/{seq}/{title}/{classes}/{stu}/{coef}")
+	public void saveCompo(@PathVariable double note,@PathVariable String seq,@PathVariable String title,@PathVariable String classes,@PathVariable String stu,@PathVariable int coef) {
+		//Matiere matiere  = this.mat.getMatiereByTitleAndClasse(title, classes);
+		Unite matiere  = unite.getUniteByName(title);
 		Student student = this.stu.getStudentByNameAndClasse(stu, classes);
-		Compose compo = new Compose(note, seq, matiere, student);
+		Compose compo = new Compose(note,coef, seq, matiere, student);
 		compose.save(compo);
 		
 		

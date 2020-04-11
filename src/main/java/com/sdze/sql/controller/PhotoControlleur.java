@@ -54,7 +54,7 @@ import com.sdze.sql.repository.PhotoRepository;
 
 @RestController
 @RequestMapping("/api/profil")
-@CrossOrigin
+@CrossOrigin("origins = http://localhost:4200")
 public class PhotoControlleur {
 	
 	@Autowired
@@ -74,14 +74,7 @@ public class PhotoControlleur {
 		
 		Photo img = new Photo(kimg,file.getOriginalFilename(),file.getContentType(),compressZLib(file.getBytes()));
 		rep_photo.save(img);
-	  //	photo.savePhoto(file,kimg);
-		
-    	//String upload ="src/main/resources/static/images";
-    	//File fichier = new File(upload+"/joel.jpg");
-    	//String route = fichier.getAbsolutePath();
-	  //  String chemin = request.getServletContext().getRealPath(upload);
-	
-		//Files.copy(file.getInputStream(), Paths.get(upload, file.getOriginalFilename()));	
+	  
 		return ResponseEntity.status(HttpStatus.OK);
 		
 	}

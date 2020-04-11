@@ -17,11 +17,14 @@ public class Compose {
 	private Long id;
 	private Date date;
 	private double note;
+	private int coef;
+	private double total;
 	private String mention;
 	private String sequence;
 	@ManyToOne
-	@JoinColumn(name="id_matiere")
-	private Matiere matiere;
+	@JoinColumn(name="id_unite")
+	//private Matiere matiere;
+	private Unite matiere;
 	public Student getStudent() {
 		return student;
 	}
@@ -59,10 +62,10 @@ public class Compose {
 	public void setMention(String mention) {
 		this.mention = mention;
 	}
-	public Matiere getMatiere() {
+	public Unite getMatiere() {
 		return matiere;
 	}
-	public void setMatiere(Matiere matiere) {
+	public void setMatiere(Unite matiere) {
 		this.matiere = matiere;
 	}
 	
@@ -73,13 +76,29 @@ public class Compose {
 		this.sequence = sequence;
 	}
 	
-	public Compose(double note, String sequence,Matiere matiere,Student student) {
+	
+	
+	public int getCoef() {
+		return coef;
+	}
+	public void setCoef(int coef) {
+		this.coef = coef;
+	}
+	public double getTotal() {
+		return total;
+	}
+	public void setTotal(double total) {
+		this.total = total;
+	}
+	public Compose(double note,int coef, String sequence,Unite matiere,Student student) {
 		super();
 		this.date = new Date();
 		this.note = note;
 		this.sequence = sequence;
 		this.matiere = matiere;
 		this.student = student;
+		this.coef = coef;
+		this.total = note*coef;
 		
 		if(this.note <=5) {
 			this.mention = "Nulle";

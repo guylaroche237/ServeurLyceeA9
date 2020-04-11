@@ -8,6 +8,6 @@ import com.sdze.sql.entite.Classes;
 public interface ClassesRepository extends JpaRepository<Classes, Long> {
 	
 	@Query("SELECT cls FROM Classes cls WHERE cls.nom = ?1")
-	public Classes getClasseByName(String name);
+	public Classes findClassesByName(String name);
 
 }

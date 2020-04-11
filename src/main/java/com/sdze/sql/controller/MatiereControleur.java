@@ -46,7 +46,7 @@ public class MatiereControleur {
 	@PostMapping("/save/{titre}/{nom}/{clas}")
 	public void saveMatiere(@PathVariable String titre,@PathVariable String nom,@PathVariable String clas) {
 		
-		Classes cls = classerep.getClasseByName(clas);
+		Classes cls = classerep.findClassesByName(clas);
 		
 		Matiere m = new Matiere(titre,nom,cls);
 		matiere.addMatier(m);

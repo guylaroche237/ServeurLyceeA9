@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 
 @Entity
@@ -14,13 +15,43 @@ public class Enseignant {
 	@GeneratedValue
 	private Long id;
 	private String nom;
-	private String tel;
+	private Long  tel;
 	private String email;
-	private String photo;
+	@Lob
+	private byte[] photo;
 	@ManyToMany
 	private List<Classes> classes;
+	private String role;
+	private String matiere;
 	
 	
+	
+	
+	
+
+	public String getRole() {
+		return role;
+	}
+
+
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+
+
+	public String getMatiere() {
+		return matiere;
+	}
+
+
+
+	public void setMatiere(String matiere) {
+		this.matiere = matiere;
+	}
+
+
 
 	public Long getId() {
 		return id;
@@ -46,13 +77,13 @@ public class Enseignant {
 
 
 
-	public String getTel() {
+	public Long getTel() {
 		return tel;
 	}
 
 
 
-	public void setTel(String tel) {
+	public void setTel(Long tel) {
 		this.tel = tel;
 	}
 
@@ -70,13 +101,13 @@ public class Enseignant {
 
 
 
-	public String getPhoto() {
+	public byte[] getPhoto() {
 		return photo;
 	}
 
 
 
-	public void setPhoto(String photo) {
+	public void setPhoto(byte[] photo) {
 		this.photo = photo;
 	}
 
@@ -94,13 +125,25 @@ public class Enseignant {
 
 
 
+	public Enseignant(String nom, Long tel, String email, byte[] photo,String matiere) {
+		super();
+		this.nom = nom;
+		this.tel = tel;
+		this.email = email;
+		this.photo = photo;
+		this.matiere = matiere;
+		this.role = "admin";
+	}
+
+
+
 	public Enseignant() {
 		super();
 	}
 
 
 
-	public Enseignant(String nom, String tel, String email) {
+	public Enseignant(String nom, Long tel, String email) {
 		super();
 		this.nom = nom;
 		this.tel = tel;

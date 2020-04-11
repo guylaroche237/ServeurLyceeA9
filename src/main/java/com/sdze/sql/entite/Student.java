@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 
 @Entity
@@ -17,10 +18,11 @@ public class Student {
 	private String login;
 	private String password;
 	private String email;
-	private String keyimg;
-	private String adresse;
 	private Date date;
 	private String classe;
+	@Lob
+	private byte[] profil;
+	private String role;
 	
 	//@OneToMany(mappedBy="student")
 	//private Collection<Sms> messages;
@@ -49,13 +51,6 @@ public class Student {
 		this.login = login;
 	}
 	
-	
-	public String getKeyimg() {
-		return keyimg;
-	}
-	public void setKeyimg(String keyimg) {
-		this.keyimg = keyimg;
-	}
 	public String getPassword() {
 		return password;
 	}
@@ -68,16 +63,20 @@ public class Student {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	
+	public byte[] getProfil() {
+		return profil;
+	}
+	public void setProfil(byte[] profil) {
+		this.profil = profil;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
 	
-	 
-	public String getAdresse() {
-		return adresse;
-	}
-	public void setAdresse(String adresse) {
-		this.adresse = adresse;
-	}
 	public Date getDate() {
 		return date;
 	}
@@ -90,58 +89,39 @@ public class Student {
 	public void setClasse(String classe) {
 		this.classe = classe;
 	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Student other = (Student) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (nom == null) {
-			if (other.nom != null)
-				return false;
-		} else if (!nom.equals(other.nom))
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
-		return true;
-	}
-	public Student(String nom, String login, String password, String email, String keyimg, String adresse, Date date,
-			String classe) {
+	
+	
+	public Student(String nom, String login, String password, String email,Date date,String classe) {
 		super();
 		this.nom = nom;
 		this.login = login;
 		this.password = password;
 		this.email = email;
-		this.keyimg = keyimg;
-		this.adresse = adresse;
 		this.date = date;
 		this.classe = classe;
+		this.role = "eleve";
 	}
+	
+	public Student(String nom, String login, String password, String email, Date date,String classe,byte[] profil) {
+		super();
+		this.nom = nom;
+		this.login = login;
+		this.password = password;
+		this.email = email;
+		this.profil = profil;
+		
+		this.date = date;
+		this.classe = classe;
+		this.role = "eleve";
+	}
+	
+	
 	public Student(String nom, String login, String password) {
 		super();
 		this.nom = nom;
 		this.login = login;
 		this.password = password;
+		this.role = "admin";
 	}
 	
 	public Student(String nom, String login, String password,String classes) {
@@ -150,6 +130,7 @@ public class Student {
 		this.login = login;
 		this.password = password;
 		this.classe = classes;
+		this.role = "eleve";
 	}
 	public Student() {
 		super();
