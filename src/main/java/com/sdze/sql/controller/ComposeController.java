@@ -35,6 +35,8 @@ public class ComposeController {
 	@Autowired
 	private UniteRepository unite;
 	
+	
+	
 	@GetMapping("/seq/{id}/{seq}")
 	public List<Compose> findCompoStudentBySequence(@PathVariable long id,@PathVariable String seq){
 		return compose.allCompoStudentBySequence(id, seq);
@@ -45,7 +47,7 @@ public class ComposeController {
 		return compose.allCompoStudentByMatiere(id,mat);
 	}
 	
-	@GetMapping("/all/{id}/{seq}")
+	@GetMapping("/all/student/{id}")
 	public List<Compose> findCompoStudent(@PathVariable long id){
 		return compose.allCompoStudent(id);
 	}
@@ -57,13 +59,23 @@ public class ComposeController {
 	
 	@Transactional
 	@PostMapping("/save/{note}/{seq}/{title}/{classes}/{stu}/{coef}")
-	public void saveCompo(@PathVariable double note,@PathVariable String seq,@PathVariable String title,@PathVariable String classes,@PathVariable String stu,@PathVariable int coef) {
+	public boolean saveCompo(@PathVariable double note,@PathVariable String seq,@PathVariable String title,@PathVariable String classes,@PathVariable String stu,@PathVariable int coef) {
 		//Matiere matiere  = this.mat.getMatiereByTitleAndClasse(title, classes);
+		boolean rep = false;
 		Unite matiere  = unite.getUniteByName(title);
 		Student student = this.stu.getStudentByNameAndClasse(stu, classes);
 		Compose compo = new Compose(note,coef, seq, matiere, student);
-		compose.save(compo);
+		for(Compose c: compose.findAll()) {
+			if(compo.getStudent().getNom().equals(c.getStudent().getNom()) && compo.getSequence().equals(c.getSequence()) && compo.getMatiere().getNom().equals(c.getMatiere().getNom())) {
+				rep = true;
+			}
+		}
 		
+		if(rep==false) {
+			compose.save(compo);
+		}
+		
+		return rep;
 		
 	}
 	

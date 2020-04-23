@@ -51,10 +51,10 @@ public class Principale {
 	public void setClasses(Classes classes) {
 		this.classes = classes;
 	}
-	public Principale(String login,String password,Enseignant enseignant, Classes classes) {
+	public Principale(Enseignant enseignant, Classes classes) {
 		super();
-		this.login = login;
-		this.password = password;
+		this.login = enseignant.getLogin();
+		this.password = enseignant.getPassword();
 		this.enseignant = enseignant;
 		this.classes = classes;
 	}

@@ -50,12 +50,7 @@ public class SmsController {
 			alls.add(sms);
 			}
 			}
-		/*
-		 * for(Sms s: smsmetier.allSms()) { Student stu = s.getStudent();
-		 * stu.setProfil(decompressZLib(s.getStudent().getProfil())); Sms sms = new
-		 * Sms(s.getMessage(),stu); alls.add(sms); }
-		 */
-		//return smsmetier.allSms();
+		
 		return alls;
 	}
 	

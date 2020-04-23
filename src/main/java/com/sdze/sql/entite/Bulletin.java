@@ -17,6 +17,7 @@ public class Bulletin {
 	private String sequence;
 	private String classes;
 	private String eleve;
+	private long id_eleve;
 	@ManyToMany
 	private List<Compose> composes;
 	public long getId() {
@@ -24,6 +25,15 @@ public class Bulletin {
 	}
 	public void setId(long id) {
 		this.id = id;
+	}
+	
+	
+	
+	public long getId_eleve() {
+		return id_eleve;
+	}
+	public void setId_eleve(long id_eleve) {
+		this.id_eleve = id_eleve;
 	}
 	public double getMoyenne() {
 		return moyenne;
@@ -75,6 +85,8 @@ public class Bulletin {
 			this.sequence = composes.get(0).getSequence();
 			this.classes = composes.get(0).getStudent().getClasse();
 			this.eleve = composes.get(0).getStudent().getNom();
+			this.id_eleve = composes.get(0).getStudent().getId();
+			
 		}
 		int total_c = 0;
 		double total_m = 0;

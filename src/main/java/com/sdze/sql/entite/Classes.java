@@ -85,6 +85,15 @@ public class Classes {
 		this.nbre = nbre;
 		this.nom = nom;
 	}
+
+	public Classes(int nbre, String nom, List<Enseignant> enseignants) {
+		super();
+		this.nbre = nbre;
+		this.nom = nom;
+		this.enseignants = enseignants;
+	}
+	
+	
 	
 	
 	

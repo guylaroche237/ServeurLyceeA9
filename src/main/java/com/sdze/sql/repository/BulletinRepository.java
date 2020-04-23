@@ -15,5 +15,8 @@ public interface BulletinRepository extends JpaRepository<Bulletin, Long> {
 	
 	@Query("SELECT bulletin FROM Bulletin bulletin WHERE bulletin.id = ?1")
 	public Bulletin getBulletinById(long id);
+	
+	@Query("SELECT bulletin FROM Bulletin bulletin WHERE bulletin.id_eleve = ?1")
+	public List<Bulletin> getBulletinStudentById(long id);
 
 }

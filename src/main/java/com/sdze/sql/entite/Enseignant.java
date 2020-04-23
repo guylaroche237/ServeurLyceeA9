@@ -15,6 +15,8 @@ public class Enseignant {
 	@GeneratedValue
 	private Long id;
 	private String nom;
+	private String login;
+	private String password;
 	private Long  tel;
 	private String email;
 	@Lob
@@ -26,14 +28,25 @@ public class Enseignant {
 	
 	
 	
-	
-	
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	public String getRole() {
 		return role;
 	}
-
-
 
 	public void setRole(String role) {
 		this.role = role;
@@ -125,7 +138,7 @@ public class Enseignant {
 
 
 
-	public Enseignant(String nom, Long tel, String email, byte[] photo,String matiere) {
+	public Enseignant(String nom, Long tel, String email, byte[] photo,String matiere,String login,String password) {
 		super();
 		this.nom = nom;
 		this.tel = tel;
@@ -133,6 +146,8 @@ public class Enseignant {
 		this.photo = photo;
 		this.matiere = matiere;
 		this.role = "admin";
+		this.login = login;
+		this.password = password;
 	}
 
 

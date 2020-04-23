@@ -24,10 +24,23 @@ public class BulletinController {
 	private BulletinRepository bulletin;
 	
 	@PostMapping("/save")
-	public Bulletin saveBulletin(@RequestBody List<Compose> compos) {
-		System.out.println("-----------------  DEBUT  -----------------------");
+	public boolean saveBulletin(@RequestBody List<Compose> compos) {
+		String seq = "",clas="";
+		boolean rep = false;
+		if(compos != null) {
+			seq = compos.get(0).getSequence();
+			clas = compos.get(0).getStudent().getClasse();
+		}
 		Bulletin bull = new Bulletin(compos);
-		return bulletin.save(bull);
+		for(Bulletin b : bulletin.getBulletinBySequenceAndClasses(seq, clas)) {
+			if(b.getEleve().equals(bull.getEleve()) && b.getSequence().equals(bull.getSequence())&& b.getClasses().equals(bull.getClasses())) {
+				rep = true;
+			}
+		}
+		
+		if(rep == false) { bulletin.save(bull);}
+		
+		return rep;
 		
 	}
 	
@@ -45,6 +58,11 @@ public class BulletinController {
 	@GetMapping("/id/{id}")
 	public Bulletin getBulletinById(@PathVariable long id) {
 		return bulletin.getBulletinById(id);
+	}
+	
+	@GetMapping("/id/student/{id}")
+	public List<Bulletin> getBulletinStudentById(@PathVariable long id) {
+		return bulletin.getBulletinStudentById(id);
 	}
 
 }

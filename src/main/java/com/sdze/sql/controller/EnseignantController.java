@@ -22,9 +22,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sdze.sql.entite.Classes;
 import com.sdze.sql.entite.Enseignant;
 
 import com.sdze.sql.metier.EnseignantMetier;
+import com.sdze.sql.repository.ClassesRepository;
 import com.sdze.sql.repository.EnseignantRepository;
 
 @RestController
@@ -37,13 +39,15 @@ public class EnseignantController {
 	
 	@Autowired
 	private EnseignantRepository enseignant;
+	@Autowired
+	private ClassesRepository clas;
 	
 	
 	
-	@PostMapping("/save/{nom}/{tel}/{email}/{matiere}")
-	public BodyBuilder saveEnseignant(@PathVariable("nom") String nom,@PathVariable("tel") Long tel, @PathVariable("email") String email,@RequestParam("imageFile") MultipartFile file,@PathVariable("matiere") String matiere) throws IOException {
+	@PostMapping("/save/{nom}/{tel}/{email}/{matiere}/{login}/{password}")
+	public BodyBuilder saveEnseignant(@PathVariable("nom") String nom,@PathVariable("tel") Long tel, @PathVariable("email") String email,@RequestParam("imageFile") MultipartFile file,@PathVariable("matiere") String matiere,@PathVariable("login") String login,@PathVariable("password") String password) throws IOException {
 		
-		Enseignant ense= new Enseignant(nom,tel,email,compressZLib(file.getBytes()),matiere);
+		Enseignant ense= new Enseignant(nom,tel,email,compressZLib(file.getBytes()),matiere,login,password);
 		enseignant.save(ense);
 		return ResponseEntity.status(HttpStatus.OK);
 		
@@ -55,7 +59,8 @@ public class EnseignantController {
 	public Enseignant getEnseignant(@PathVariable Long id) {
 	
 		final Optional<Enseignant> ensegnant_profil = enseignant.findById(id);
-		Enseignant img = new Enseignant (ensegnant_profil.get().getNom(),ensegnant_profil.get().getTel(),ensegnant_profil.get().getEmail(),decompressZLib(ensegnant_profil.get().getPhoto()),ensegnant_profil.get().getMatiere());
+		Enseignant img = new Enseignant (ensegnant_profil.get().getNom(),ensegnant_profil.get().getTel(),ensegnant_profil.get().getEmail(),decompressZLib(ensegnant_profil.get().getPhoto()),ensegnant_profil.get().getMatiere(),ensegnant_profil.get().getLogin(),ensegnant_profil.get().getPassword());
+		img.setId(ensegnant_profil.get().getId());
 		return img;
 		//return photo.getPhotoById(id);
 		
@@ -66,10 +71,37 @@ public class EnseignantController {
 		List<Enseignant> alls = new ArrayList<Enseignant>();
 		List<Enseignant> listes = enseignant.findAll();
 		for(Enseignant e:listes) {
-			Enseignant ens = new Enseignant(e.getNom(),e.getTel(),e.getEmail(),decompressZLib(e.getPhoto()),e.getMatiere());
+			Enseignant ens = new Enseignant(e.getNom(),e.getTel(),e.getEmail(),decompressZLib(e.getPhoto()),e.getMatiere(),e.getLogin(),e.getPassword());
+			ens.setId(e.getId());
 			alls.add(ens);
 		}
 		return alls;
+	}
+	
+	@GetMapping("/sign/{login}/{password}/{sale}")
+	public boolean connection(@PathVariable String login, @PathVariable String password,@PathVariable String sale) {
+		Classes cls = clas.findClassesByName(sale);
+		Enseignant ens = enseignant.getEnseignantByLoginAndPass(login, password);
+		boolean rep = false;
+		
+		if(ens != null) {
+			for(Enseignant e :cls.getEnseignants()) {
+				if(e.equals(ens)) {
+					rep = true;
+					
+				}
+			}
+		}
+		
+		
+		
+		return rep;
+	}
+	
+	@GetMapping("/sign/{login}/{password}")
+	public Enseignant connection(@PathVariable String login, @PathVariable String password) {
+		Enseignant ens = enseignant.getEnseignantByLoginAndPass(login, password);
+		return ens;
 	}
 	
 	public static byte[] compressZLib(byte[] data) {

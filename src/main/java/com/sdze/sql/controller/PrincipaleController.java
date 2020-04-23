@@ -29,11 +29,11 @@ public class PrincipaleController {
 	@Autowired
 	private ClassesRepository sale;
 	
-	@PostMapping("/save/{login}/{password}/{ens}/{classes}")
-	public Principale savePrincipale(@PathVariable String login,@PathVariable String password,@PathVariable String ens,@PathVariable String classes) {
+	@PostMapping("/save/{ens}/{classes}")
+	public Principale savePrincipale(@PathVariable String ens,@PathVariable String classes) {
 		Enseignant teacher = enseignant.getEnseignantByName(ens);
 		Classes clas = sale.findClassesByName(classes);
-		Principale prin = new Principale(login, password, teacher, clas);
+		Principale prin = new Principale(teacher, clas);
 		return principale.save(prin);
 		
 	}
